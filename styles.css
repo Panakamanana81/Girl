@@ -113,3 +113,14 @@ button:hover {
   background: #eaf0ff;
   color: #2d4cb6;
 }
+
+
+.runtime-mode {
+  margin-top: 1rem;
+  padding: 0.7rem 0.9rem;
+  border-radius: 10px;
+  border: 1px solid #c9dbff;
+  background: #f1f6ff;
+  color: #23439c;
+  font-size: 0.92rem;
+}

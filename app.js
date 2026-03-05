@@ -47,6 +47,14 @@ const difficultySelect = document.getElementById('difficulty');
 const generateBtn = document.getElementById('generateBtn');
 const exerciseContainer = document.getElementById('exercise');
 
+
+const runtimeMode = document.getElementById('runtimeMode');
+
+if (window.location.protocol === 'file:') {
+  runtimeMode.hidden = false;
+  runtimeMode.textContent = 'Modalità offline: app aperta direttamente da index.html (nessun server necessario).';
+}
+
 generateBtn.addEventListener('click', generateExercise);
 generateExercise();
 
