@@ -1,0 +1,9 @@
+{
+  "name": "fusion360-parametric-exercises",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Generatore di esercizi parametrici per Fusion 360",
+  "scripts": {
+    "start": "node server.js"
+  }
+}
