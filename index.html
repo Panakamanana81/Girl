@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Accoppia Segni Zodiacali</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background: radial-gradient(circle at top, #2a2a72, #111);
+      color: #f7f7f7;
+    }
+    .card {
+      width: min(640px, 92vw);
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(6px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 18px;
+      padding: 1.2rem;
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.35);
+    }
+    h1 { margin-top: 0; font-size: 1.5rem; }
+    .grid {
+      display: grid;
+      gap: 0.8rem;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+    select, button {
+      width: 100%;
+      padding: 0.7rem;
+      border-radius: 10px;
+      border: none;
+      font-size: 1rem;
+    }
+    button {
+      cursor: pointer;
+      background: linear-gradient(135deg, #ffd369, #ff9f1c);
+      color: #1f1f1f;
+      font-weight: 700;
+    }
+    #result {
+      margin-top: 1rem;
+      background: rgba(0,0,0,0.25);
+      border-radius: 12px;
+      padding: 0.9rem;
+      line-height: 1.4;
+    }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <h1>✨ Compatibilità dei Segni Zodiacali</h1>
+    <p>Scegli due segni per vedere una stima della loro compatibilità.</p>
+
+    <div class="grid">
+      <label>
+        Primo segno
+        <select id="signA"></select>
+      </label>
+      <label>
+        Secondo segno
+        <select id="signB"></select>
+      </label>
+    </div>
+
+    <p><button id="matchBtn">Calcola compatibilità</button></p>
+    <section id="result">Seleziona due segni e premi il pulsante.</section>
+  </main>
+
+  <script>
+    const signs = [
+      "Ariete", "Toro", "Gemelli", "Cancro", "Leone", "Vergine",
+      "Bilancia", "Scorpione", "Sagittario", "Capricorno", "Acquario", "Pesci"
+    ];
+
+    const elements = {
+      Fuoco: ["Ariete", "Leone", "Sagittario"],
+      Terra: ["Toro", "Vergine", "Capricorno"],
+      Aria: ["Gemelli", "Bilancia", "Acquario"],
+      Acqua: ["Cancro", "Scorpione", "Pesci"],
+    };
+
+    const compatByElement = {
+      "Fuoco-Fuoco": [90, "Unione intensa e passionale."],
+      "Fuoco-Aria": [85, "Aria alimenta il fuoco: coppia dinamica."],
+      "Fuoco-Terra": [60, "Buon potenziale, ma ritmi diversi."],
+      "Fuoco-Acqua": [55, "Attrazione forte ma emotività delicata."],
+      "Terra-Terra": [88, "Stabilità e concretezza condivise."],
+      "Terra-Acqua": [82, "Accoppiata profonda e nutriente."],
+      "Terra-Aria": [58, "Visioni diverse: serve dialogo."],
+      "Aria-Aria": [86, "Grande intesa mentale e libertà."],
+      "Aria-Acqua": [62, "Relazione interessante ma da equilibrare."],
+      "Acqua-Acqua": [84, "Forte connessione emotiva."],
+    };
+
+    function getElement(sign) {
+      return Object.keys(elements).find((el) => elements[el].includes(sign));
+    }
+
+    function getCompatibility(signA, signB) {
+      if (signA === signB) {
+        return { score: 92, text: "Stesso segno: capite subito punti di forza e limiti reciproci." };
+      }
+
+      const elA = getElement(signA);
+      const elB = getElement(signB);
+      const key = `${elA}-${elB}`;
+      const reverseKey = `${elB}-${elA}`;
+      const data = compatByElement[key] || compatByElement[reverseKey] || [65, "Compatibilità media: fate leva sulla comunicazione."];
+
+      return {
+        score: data[0],
+        text: data[1],
+      };
+    }
+
+    function renderOptions(select) {
+      signs.forEach((sign) => {
+        const option = document.createElement("option");
+        option.value = sign;
+        option.textContent = sign;
+        select.appendChild(option);
+      });
+    }
+
+    const signA = document.getElementById("signA");
+    const signB = document.getElementById("signB");
+    const result = document.getElementById("result");
+
+    renderOptions(signA);
+    renderOptions(signB);
+
+    document.getElementById("matchBtn").addEventListener("click", () => {
+      const a = signA.value;
+      const b = signB.value;
+      const { score, text } = getCompatibility(a, b);
+      result.innerHTML = `<strong>${a} + ${b}</strong><br/>Compatibilità: <strong>${score}%</strong><br/>${text}`;
+    });
+  </script>
+</body>
+</html>
