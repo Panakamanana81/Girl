@@ -2,13 +2,41 @@
   "name": "gestione-fatture",
   "version": "1.0.0",
   "private": true,
+  "main": "electron/main.js",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "electron:dev": "concurrently \"npm run dev\" \"wait-on http://localhost:5173 && electron .\"",
+    "dist": "npm run build && electron-builder --win --x64"
+  },
+  "build": {
+    "appId": "com.gestione.fatture",
+    "productName": "Gestione Fatture",
+    "directories": {
+      "buildResources": "electron",
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "electron/main.js"
+    ],
+    "extraMetadata": {
+      "main": "electron/main.js"
+    },
+    "win": {
+      "target": "nsis",
+      "icon": "electron/icon.png"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "installerLanguages": ["it-IT"],
+      "language": "1040"
+    }
   },
   "dependencies": {
     "lucide-react": "^0.344.0",
@@ -27,11 +55,15 @@
     "@vitejs/plugin-react": "^4.3.1",
     "@vitest/coverage-v8": "^1.4.0",
     "autoprefixer": "^10.4.19",
+    "concurrently": "^9.2.1",
+    "electron": "^42.0.1",
+    "electron-builder": "^26.8.1",
     "jsdom": "^24.0.0",
     "postcss": "^8.4.38",
     "tailwindcss": "^3.4.3",
     "typescript": "^5.4.3",
     "vite": "^5.2.6",
-    "vitest": "^1.4.0"
+    "vitest": "^1.4.0",
+    "wait-on": "^9.0.5"
   }
 }
