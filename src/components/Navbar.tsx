@@ -1,10 +1,11 @@
 import { NavLink } from 'react-router-dom'
-import { LayoutDashboard, FileText, BarChart2 } from 'lucide-react'
+import { LayoutDashboard, FileText, BarChart2, Settings } from 'lucide-react'
 
 const voci = [
   { to: '/', label: 'Dashboard', icona: LayoutDashboard },
   { to: '/fatture', label: 'Fatture', icona: FileText },
   { to: '/report', label: 'Report', icona: BarChart2 },
+  { to: '/impostazioni', label: 'Impostazioni', icona: Settings },
 ]
 
 export function Navbar() {

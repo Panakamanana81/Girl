@@ -1,11 +1,13 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { FattureProvider } from './store/FattureProvider'
 import { Navbar } from './components/Navbar'
+import { ChatWidget } from './components/ChatWidget'
 import { Dashboard } from './pages/Dashboard'
 import { ListaFatture } from './pages/ListaFatture'
 import { FormFattura } from './pages/FormFattura'
 import { DettaglioFattura } from './pages/DettaglioFattura'
 import { Report } from './pages/Report'
+import { Impostazioni } from './pages/Impostazioni'
 
 export default function App() {
   return (
@@ -21,8 +23,10 @@ export default function App() {
               <Route path="/fatture/:id" element={<DettaglioFattura />} />
               <Route path="/fatture/:id/modifica" element={<FormFattura />} />
               <Route path="/report" element={<Report />} />
+              <Route path="/impostazioni" element={<Impostazioni />} />
             </Routes>
           </main>
+          <ChatWidget />
         </div>
       </FattureProvider>
     </BrowserRouter>
